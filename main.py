@@ -1,10 +1,13 @@
 def cnt_find(find_graph):
     global n
     cnt_x, cnt_y = 1, 1
+    max_x, max_y = -1e8, -1e8
     for j in range(n):
         for i in range(n-1):
+            print
             if graph[i][j] == graph[i + 1][j]:
                 cnt_x += 1
+                max_x = max(cnt_x, max_x)
             else:
                 cnt_x = 1
         cnt_x = 1
@@ -12,11 +15,11 @@ def cnt_find(find_graph):
         for j in range(n-1):
             if graph[i][j] == graph[i][j + 1]:
                 cnt_y += 1
+                max_y = max(cnt_y, max_y)
             else:
                 cnt_y = 1
         cnt_y = 1
-    print(cnt_x, cnt_y)
-    answer = max(cnt_x, cnt_y)
+    answer = max(max_x, max_y)
     return answer
 
 
