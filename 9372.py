@@ -21,8 +21,8 @@ for _ in range(T):
     visited = [0] * (N + 1)
 
     for _ in range(M):
-        a, b = map(int, input().split())
-        graph[a].append(b)
-        graph[b].append(a)
+        start, end = map(int, input().split())
+        graph[start].append(end)
+        graph[end].append(start)
 
     print(DFS(1, 0))
