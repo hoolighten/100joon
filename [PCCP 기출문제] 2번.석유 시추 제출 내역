@@ -1,0 +1,59 @@
+#include <string>
+#include <vector>
+#include <queue>
+#include <iostream>
+using namespace std;
+
+int nx[4] = {0, 0, 1, -1};
+int ny[4] = {1, -1, 0, 0};
+
+int bfs(int xAxis, int yAxis, vector<vector<bool>> &_visited, vector<vector<int>> &_land)
+{
+    queue<pair<int, int>> q;
+    int cnt = 1;
+    q.push({xAxis, yAxis});
+    _visited[yAxis][xAxis] = true;
+    
+    while(!q.empty())
+    {
+        int x = q.front().first;
+        int y = q.front().second;
+        q.pop();
+
+        for(int i = 0; i < 4; i++)
+        {
+            int dx = x + nx[i];
+            int dy = y + ny[i];
+
+            if(dx >= 0 && dx < _land[0].size() && dy >= 0 && dy < _land.size() && !_visited[dy][dx] && _land[dy][dx] == 1)
+            {
+                q.push({dx, dy});
+                _visited[dy][dx] = true;
+                cnt++;
+            }
+        }
+    }
+    return cnt;
+}
+
+int solution(vector<vector<int>> land) {
+    int m = land.size();
+    int n = land[0].size();
+    
+    vector<vector<bool>> visited(m, vector<bool>(n, false));
+    int totalCount = 0;
+    
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++){
+            if(land[i][j] == 1 && !visited[i][j])
+            {
+                int cnt = bfs(j, i, visited, land);
+                cout << cnt << endl;
+                totalCount +=cnt;
+            }
+        }
+    }
+    
+    int answer = totalCount;
+    return answer;
+}
