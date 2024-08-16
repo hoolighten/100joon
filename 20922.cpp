@@ -4,7 +4,8 @@ using namespace std;
 
 int main()
 {
-    int n, k, idx = 0, cnt = 0, max_val = -1;
+    int n, k, idx = 0, cnt = 0;
+    int MaxVal = 0;
     int arr[200001];
     int arrIdx[200001] = { 0, };
     cin >> n >> k;
@@ -12,28 +13,39 @@ int main()
     {
         cin >> arr[i]; 
     }
-    while(idx < n)
+    for(int StIdx = 0; StIdx < n; StIdx++)
     {
-        // cout << "idx : " << idx << endl;
-        arrIdx[arr[idx]]++;
-        if(arrIdx[arr[idx]] <= k)
+        while(idx < n)
         {
-            // cout << arr[idx];
-            cnt++;
+            // cout << "idx : " << idx << endl;
+            arrIdx[arr[idx]]++;
+            if(arrIdx[arr[idx]] <= k)
+            {
+                // cout << arr[idx];
+                cnt++;
+            }
+            else
+            {
+                arrIdx[arr[StIdx]]--;
+                arrIdx[arr[idx]]--;
+                cnt--;
+                // cout << "초기화" << endl;
+                // for(int i = 0; i < n; i++)
+                // {
+                //     cout << arrIdx[i] << " ";
+                // }
+                // cout << endl;
+                break;
+            }
+            // for(int i = 0; i < n; i++)
+            // {
+            //     cout << arrIdx[i] << " ";
+            // }
+            // cout << endl;
+            idx++;
+            // cout << "cnt : " << cnt << endl;
+            MaxVal = max(MaxVal, cnt);
         }
-        else
-        {
-            // cout << "초기화" << endl;
-            fill_n(arrIdx, 200001, 0);
-            cnt = 1;
-        }
-        // for(int i = 0; i < n; i++)
-        // {
-        //     cout << arrIdx[i] << " ";
-        // }
-        max_val = max(max_val, cnt);
-        idx++;
-        // cout << "max_val : " << max_val  << " " << "cnt : " << cnt << endl;
     }
-    cout << max_val;
+    cout << MaxVal;
 }
