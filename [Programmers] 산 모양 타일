@@ -1,0 +1,18 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+int solution(int n, vector<int> tops) {
+    int ldp[100001] = {0, };
+    int rdp[100001] = {0, };
+    ldp[0] = 2 + tops[0];
+    rdp[0] = 1;
+    int answer = 0;
+    for(int i = 1; i < n; i++)
+    {
+        ldp[i] = (rdp[i-1]*(1+tops[i]) + ldp[i-1]*(2+tops[i]))%10007;
+        rdp[i] = (rdp[i-1] + ldp[i-1]) % 10007;
+    }
+    answer = (ldp[n-1] + rdp[n-1])%10007;
+    return answer;
+}
